@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:StrangersToFriends.Converter"
+             x:Class="StrangersToFriends.Pages.MyActivitiesPage"
+             Title="My Activities"
+             Icon="ic_person_pin.png">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DateTimeToStringConverter x:Key="dateToString" />
+            <converters:ParticipantsToStringNumberConverter x:Key="participantsToStringNumber" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Create" Icon="ic_add.png" Command="{Binding NavigateCommand}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <ListView x:Name="listView" ItemsSource="{Binding Activities}" SeparatorVisibility="None" HasUnevenRows="true">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame HasShadow="true" Margin="20,8,20,8" HeightRequest="70">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Column="0" Spacing="0">
+                                    <Label Text="{Binding Date, ConverterParameter=dd, Converter={StaticResource dateToString}}" HorizontalOptions="Center" FontSize="25"/>
+                                    <Label Text="{Binding Date, ConverterParameter=MMM, Converter={StaticResource dateToString}}" HorizontalOptions="Center" FontSize="15"/>
+                                </StackLayout>
+                                <BoxView Grid.Column="1" Color="Silver" />
+                                <StackLayout Grid.Column="2" Spacing="0" VerticalOptions="Center" Margin="5">
+                                    <Label Text="{Binding Title}"/>
+                                    <Label Text="{Binding Participants, Converter={StaticResource participantsToStringNumber}}" FontSize="14" TextColor="Silver"/>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

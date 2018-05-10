@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="StrangersToFriends.Pages.SearchPage"
+             Title="Search"
+             Icon="ic_search.png">
+          
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <Label Text="Search" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

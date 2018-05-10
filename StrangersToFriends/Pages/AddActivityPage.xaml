@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:StrangersToFriends.Converter"
+             x:Class="StrangersToFriends.Pages.AddActivityPage">
+    
+    <ContentPage.Content>
+        <Frame HasShadow="true" VerticalOptions="Center" HorizontalOptions="Center">
+            <StackLayout>
+                <Entry Placeholder="Title" Text="{Binding Title}"/>
+                <DatePicker Format="dd.MM.yyyy" Date="{Binding Date}"/>
+                <TimePicker Time="{Binding Time}"/>
+                <Picker Title="Category" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"/>
+                <Entry Placeholder="Description" Text="{Binding Description}"/>
+                <Entry Placeholder="Number of Participants" Text="{Binding Participants}"/>
+                <Button Text="Create Activity" TextColor="Black" BorderWidth="0.5" BorderRadius="10" BorderColor="Black" HeightRequest="30" Command="{Binding CreateCommand}"/> 
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>
