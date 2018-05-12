@@ -6,7 +6,7 @@
     
     <ContentPage.Content>
         <Frame HasShadow="true" VerticalOptions="Center" HorizontalOptions="Center">
-            <StackLayout>
+            <StackLayout WidthRequest="250">
                 <Entry Placeholder="Title" Text="{Binding Title}"/>
                 <DatePicker Format="dd.MM.yyyy" Date="{Binding Date}"/>
                 <TimePicker Time="{Binding Time}"/>

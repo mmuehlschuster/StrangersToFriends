@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="StrangersToFriends.Pages.LoginPage">
+    <ContentPage.Content>
+        <Frame HasShadow="true" VerticalOptions="Center" HorizontalOptions="Center">
+            <StackLayout Spacing="15" WidthRequest="250">
+                <Label Text="{Binding Title}"/> 
+                <Entry Placeholder="Email" Text="{Binding Email, Mode=TwoWay}"/>
+                <Entry Placeholder="Password" Text="{Binding Password, Mode=TwoWay}" IsPassword="true"/>
+                <Button Text="{Binding Title}" TextColor="Black" BorderWidth="0.5" BorderRadius="10" BorderColor="Black" HeightRequest="30" Command="{Binding SignUpOrLoginCommand}"/>
+                <Button Text="Forgort password?" FontSize="13" HeightRequest="13" TextColor="Gray" HorizontalOptions="Start" IsVisible="{Binding IsPasswordResetVisable}"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="5" Margin="0,50,0,0">
+                    <Label Text="Not registered?" FontSize="13" TextColor="Gray"/>
+                    <Button Text="{Binding Signup}" FontSize="13" HeightRequest="13" TextColor="Black" Command="{Binding SignUpCommand}"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

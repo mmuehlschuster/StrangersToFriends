@@ -47,6 +47,7 @@ namespace StrangersToFriends.ViewModel
             SimpleIoc.Default.Register<AllActivitiesViewModel>();
             SimpleIoc.Default.Register<MyActivitiesViewModel>();
             SimpleIoc.Default.Register<SearchViewModel>();
+            SimpleIoc.Default.Register<LoginViewModel>();
         }
 
         public MainViewModel MainViewModel
@@ -86,6 +87,14 @@ namespace StrangersToFriends.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<SearchViewModel>();
+            }
+        }
+
+        public LoginViewModel LoginViewModel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<LoginViewModel>();
             }
         }
         

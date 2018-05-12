@@ -11,7 +11,7 @@ using GalaSoft.MvvmLight;
 
 namespace StrangersToFriends.ViewModel
 {
-    public class MyActivitiesViewModel
+	public class MyActivitiesViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
         public ICommand NavigateCommand { get; private set; }

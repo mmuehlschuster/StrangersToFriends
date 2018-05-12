@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using Firebase.Auth;
+using Firebase.Database;
 
 using System;
 using System.Collections.Generic;
@@ -7,10 +8,15 @@ using System.Windows.Input;
 using StrangersToFriends.Infastructure.Services;
 using StrangersToFriends.Model;
 
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+
 namespace StrangersToFriends.ViewModel
 {
-    public class AddViewModel
+	public class AddViewModel : ViewModelBase
     {
+		public const string FirebaseAppUri = "https://strangerstofriends-50df0.firebaseio.com";
+
         private readonly INavigationService _navigationService;
         public ICommand CreateCommand { get; private set; }
 
@@ -31,7 +37,7 @@ namespace StrangersToFriends.ViewModel
         {
             _navigationService = navigationService;
 
-            CreateCommand = new Command(() => CreateActivity());
+			CreateCommand = new RelayCommand(CreateActivity);
 
             Categories = new List<string> { "Sport" };
         }
@@ -48,11 +54,11 @@ namespace StrangersToFriends.ViewModel
 
         private void clearFields() 
         {
-            Title = "";
+			Title = string.Empty;
             date = DateTime.Now;
-            Description = "";
-            Participants = "";
-            SelectedCategory = "";
+			Description = string.Empty;
+			Participants = string.Empty;
+			SelectedCategory = string.Empty;
         }
     }
 }

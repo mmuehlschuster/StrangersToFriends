@@ -1,7 +1,10 @@
 ﻿using System;
+
+using GalaSoft.MvvmLight;
+
 namespace StrangersToFriends.ViewModel
 {
-    public class AllActivitiesViewModel
+	public class AllActivitiesViewModel : ViewModelBase
     {
         public AllActivitiesViewModel()
         {

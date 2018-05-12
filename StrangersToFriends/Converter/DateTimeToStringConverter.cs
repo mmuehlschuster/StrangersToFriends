@@ -10,7 +10,7 @@ namespace StrangersToFriends.Converter
         
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string format = parameter as string;
+			string format =  parameter as string;
 
             DateTime dateTime = (DateTime)value;
 

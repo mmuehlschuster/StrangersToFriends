@@ -36,6 +36,7 @@ namespace StrangersToFriends
                 navigationService.Configure(AppPages.AllActivitiesPage, typeof(AllActivitiesPage));
                 navigationService.Configure(AppPages.MyActivitiesPage, typeof(MyActivitiesPage));
                 navigationService.Configure(AppPages.SearchPage, typeof(SearchPage));
+				navigationService.Configure(AppPages.LoginPage, typeof(LoginPage));
 
                 // Register NavigationService in IoC container:
                 SimpleIoc.Default.Register<INavigationService>(() => navigationService);
@@ -43,9 +44,9 @@ namespace StrangersToFriends
 
             else
                 navigationService = SimpleIoc.Default.GetInstance<INavigationService>();
-            
-            // Create new Navigation Page and set MainPage as its default page:
-            var firstPage = new NavigationPage(new MainPage());
+
+			// Create new Navigation Page and set MainPage as its default page:
+			var firstPage = new NavigationPage(new LoginPage());
             // Set Navigation page as default page for Navigation Service:
             navigationService.Initialize(firstPage);
             // You have to also set MainPage property for the app:

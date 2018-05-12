@@ -9,7 +9,6 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:DateTimeToStringConverter x:Key="dateToString" />
             <converters:ParticipantsToStringNumberConverter x:Key="participantsToStringNumber" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -31,8 +30,8 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <StackLayout Grid.Column="0" Spacing="0">
-                                    <Label Text="{Binding Date, ConverterParameter=dd, Converter={StaticResource dateToString}}" HorizontalOptions="Center" FontSize="25"/>
-                                    <Label Text="{Binding Date, ConverterParameter=MMM, Converter={StaticResource dateToString}}" HorizontalOptions="Center" FontSize="15"/>
+                                    <Label Text="{Binding Date, StringFormat='{0:dd}'}" HorizontalOptions="Center" FontSize="25"/>
+                                    <Label Text="{Binding Date, StringFormat='{0:MMM}'}" HorizontalOptions="Center" FontSize="15"/>
                                 </StackLayout>
                                 <BoxView Grid.Column="1" Color="Silver" />
                                 <StackLayout Grid.Column="2" Spacing="0" VerticalOptions="Center" Margin="5">
