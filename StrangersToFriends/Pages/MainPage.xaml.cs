@@ -9,7 +9,7 @@ namespace StrangersToFriends.Pages
 {
     public partial class MainPage : TabbedPage
     {
-		public MainPage(FirebaseAuth auth)
+		public MainPage(FirebaseAuthLink auth)
         {
             InitializeComponent();
             BindingContext = App.Locator.MainViewModel;

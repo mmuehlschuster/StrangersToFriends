@@ -19,7 +19,7 @@ namespace StrangersToFriends.ViewModel
 
 		private bool isSignup = false;
         
-        private FirebaseAuthProvider authProvider = null;
+        private FirebaseAuthProvider authProvider;
 
 		public ICommand SignUpOrLoginCommand { get; private set; }
 		public ICommand SignUpCommand { get; private set; }
@@ -46,7 +46,7 @@ namespace StrangersToFriends.ViewModel
             
 			if (!string.IsNullOrWhiteSpace(Email) || !string.IsNullOrWhiteSpace(Password))
 			{
-				FirebaseAuth auth = null;
+				FirebaseAuthLink auth;
                 if (isSignup)
                 {
 					try 

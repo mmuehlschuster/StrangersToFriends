@@ -36,7 +36,7 @@
                                 <BoxView Grid.Column="1" Color="Silver" />
                                 <StackLayout Grid.Column="2" Spacing="0" VerticalOptions="Center" Margin="5">
                                     <Label Text="{Binding Title}"/>
-                                    <Label Text="{Binding Participants, Converter={StaticResource participantsToStringNumber}}" FontSize="14" TextColor="Silver"/>
+                                    <Label Text="{Binding NumberOfParticipants, Converter={StaticResource participantsToStringNumber}}" FontSize="14" TextColor="Silver"/>
                                 </StackLayout>
                             </Grid>
                         </Frame>

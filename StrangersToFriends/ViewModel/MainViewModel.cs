@@ -12,7 +12,7 @@ namespace StrangersToFriends.ViewModel
     {
         private readonly INavigationService _navigationService;
 
-		public FirebaseAuth auth { get; set; }
+		public FirebaseAuthLink auth { get; set; }
 
         public MainViewModel(INavigationService navigationService)
         {

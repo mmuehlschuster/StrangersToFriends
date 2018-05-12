@@ -24,28 +24,46 @@ namespace StrangersToFriends.ViewModel
 
         private DateTime date = DateTime.Now;
         public DateTime Date { get { return date; } set { date = value; } }
-
         public TimeSpan Time { get; set; }
 
-        public string Description { get; set; }
-        public string Participants { get; set; }
-
-        public List<string> Categories { get; set; }
+		public List<string> Categories { get; set; }
         public string SelectedCategory { get; set; }
 
+		public string Location { get; set; }
+
+        public string Description { get; set; }
+		public string NumberOfParticipants { get; set; }
+
+        
         public AddViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
 
 			CreateCommand = new RelayCommand(CreateActivity);
 
-            Categories = new List<string> { "Sport" };
+            Categories = new List<string> { "Sport", "Gastronomy", "Culture", "Games", "Tutoring", "Events", "Trips" };
         }
 
         private void CreateActivity() 
         {
-            Date = Date.Date + Time;
-            App.Locator.MyActivitiesViewModel.Activities.Insert(0, new Activity(Title, Date, Description, Participants));
+			FirebaseAuth auth = App.Locator.MainViewModel.auth;
+
+
+
+            Location location = new Location(Location, 1, 1);
+
+            Activity activity = new Activity();
+            activity.Title = Title;
+            activity.Date = Date.Date + Time;
+            activity.Category = SelectedCategory;
+            activity.Location = location;
+            activity.Description = Description;
+            activity.Participants = 1;
+            activity.NumberOfParticipants = activity.Participants + "/" + NumberOfParticipants;
+            activity.CreatedBy = auth.User.LocalId;
+			activity.JoinedBy.Add(auth.User.LocalId);
+
+            App.Locator.MyActivitiesViewModel.Activities.Insert(0, activity);
 
             clearFields();
 
@@ -56,9 +74,10 @@ namespace StrangersToFriends.ViewModel
         {
 			Title = string.Empty;
             date = DateTime.Now;
-			Description = string.Empty;
-			Participants = string.Empty;
 			SelectedCategory = string.Empty;
+			Location = string.Empty;
+			Description = string.Empty;
+			NumberOfParticipants = string.Empty;
         }
     }
 }
