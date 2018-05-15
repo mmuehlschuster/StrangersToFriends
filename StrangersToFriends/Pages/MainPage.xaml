@@ -3,7 +3,8 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
             xmlns:local="clr-namespace:StrangersToFriends.Pages" 
             x:Class="StrangersToFriends.Pages.MainPage"
-            Title="StrangersToFriends">
+            Title="StrangersToFriends"
+            BackgroundImage="logo.png">
     
     <TabbedPage.Children>
         <local:AllActivitiesPage />

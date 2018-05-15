@@ -13,8 +13,10 @@
 */
 
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Ioc;
 using CommonServiceLocator;
+using StrangersToFriends.Infrastructure.Services;
 
 namespace StrangersToFriends.ViewModel
 {
@@ -48,6 +50,7 @@ namespace StrangersToFriends.ViewModel
             SimpleIoc.Default.Register<MyActivitiesViewModel>();
             SimpleIoc.Default.Register<SearchViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
+			SimpleIoc.Default.Register<DetailsViewModel>();
         }
 
         public MainViewModel MainViewModel
@@ -97,6 +100,14 @@ namespace StrangersToFriends.ViewModel
                 return ServiceLocator.Current.GetInstance<LoginViewModel>();
             }
         }
+
+		public DetailsViewModel DetailsViewModel 
+		{
+			get
+			{
+				return ServiceLocator.Current.GetInstance<DetailsViewModel>();	
+			}
+		}
         
         public static void Cleanup()
         {

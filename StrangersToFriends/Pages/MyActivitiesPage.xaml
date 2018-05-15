@@ -4,7 +4,8 @@
              xmlns:converters="clr-namespace:StrangersToFriends.Converter"
              x:Class="StrangersToFriends.Pages.MyActivitiesPage"
              Title="My Activities"
-             Icon="ic_person_pin.png">
+             Icon="ic_person_pin.png"
+             BackgroundImage="logo.png">
 
 
     <ContentPage.Resources>
@@ -14,11 +15,11 @@
     </ContentPage.Resources>
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="Create" Icon="ic_add.png" Command="{Binding NavigateCommand}"></ToolbarItem>
+        <ToolbarItem Name="Create" Icon="ic_add.png" Command="{Binding AddCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
-        <ListView x:Name="listView" ItemsSource="{Binding Activities}" SeparatorVisibility="None" HasUnevenRows="true">
+        <ListView ItemsSource="{Binding Activities}" SeparatorVisibility="None" HasUnevenRows="true" SelectedItem="{Binding SelectedActivity, Mode=TwoWay}" BackgroundColor="Transparent">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

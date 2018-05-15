@@ -1,35 +1,71 @@
-﻿using Xamarin.Forms;
-
+﻿using System.Linq;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 using StrangersToFriends.Enums;
 using StrangersToFriends.Model;
+using StrangersToFriends.Helper;
+using StrangersToFriends.Constants;
 using StrangersToFriends.Infastructure.Services;
 
+using Firebase.Database;
+
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace StrangersToFriends.ViewModel
 {
 	public class MyActivitiesViewModel : ViewModelBase
-    {
-        private readonly INavigationService _navigationService;
-        public ICommand NavigateCommand { get; private set; }
+	{
+		private readonly INavigationService _navigationService;
+		public ICommand AddCommand { get; private set; }
 
-        public ObservableCollection<Activity> Activities { get; set; }
+		public ObservableCollection<Activity> Activities { get; set; }
 
-        public MyActivitiesViewModel(INavigationService navigationService)
-        {
-            _navigationService = navigationService;
+		public Activity SelectedActivity 
+		{
+			get => null;
+			set => _navigationService.NavigateTo(AppPages.DetailsPage, value);
+		}
 
-            NavigateCommand = new Command(() => Navigate());
+		private FirebaseClient _firebase;
 
-            Activities = new ObservableCollection<Activity>();
-        }
+		public MyActivitiesViewModel(INavigationService navigationService)
+		{
+			_navigationService = navigationService;
+            
+			AddCommand = new RelayCommand(AddActivity);
 
-        private void Navigate()
-        {
-            _navigationService.NavigateTo(AppPages.AddActivityPage);
-        }
-    }
+			Activities = new ObservableCollection<Activity>();
+            
+			_firebase = new FirebaseClient(Constant.FirebaseAppUri, new FirebaseOptions
+			{
+				AuthTokenAsyncFactory = () => Task.FromResult(LoginManager.Auth.FirebaseToken)
+			});
+
+			loadDataFromDatabase();
+		}
+
+		private void AddActivity()
+		{
+			_navigationService.NavigateTo(AppPages.AddActivityPage);
+		}
+
+		private async void loadDataFromDatabase()
+		{
+			var activities = await _firebase.Child("activities").OnceAsync<Activity>();
+
+			Activities.Clear();
+			foreach (var activity in activities)
+			{
+				if (activity.Object.CreatedBy.Equals(LoginManager.Auth.User.LocalId)) 
+				{
+					Activity ac = activity.Object;
+					ac.ID = activity.Key;
+					Activities.Add(ac);
+				}
+			}
+		}
+	}
 }

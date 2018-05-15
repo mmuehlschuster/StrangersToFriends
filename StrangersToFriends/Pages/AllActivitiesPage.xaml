@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:converters="clr-namespace:StrangersToFriends.Converter" 
              x:Class="StrangersToFriends.Pages.AllActivitiesPage" 
-             Title="All Activities"
-             Icon="ic_home.png">
+             Title="All Activities" 
+             Icon="ic_home.png"
+             BackgroundImage="logo.png">
     
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ParticipantsToStringNumberConverter x:Key="ParticipantsToStringNumber" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        
+        <ListView ItemsSource="{Binding AllActivities}" SeparatorVisibility="None" HasUnevenRows="true" SelectedItem="{Binding SelectedActivity, Mode=TwoWay}" BackgroundColor="Transparent">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame HasShadow="true" Margin="20,8,20,8" HeightRequest="70">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Column="0" Spacing="0">
+                                    <Label Text="{Binding Date, StringFormat='{0:dd}'}" HorizontalOptions="Center" FontSize="25" />
+                                    <Label Text="{Binding Date, StringFormat='{0:MMM}'}" HorizontalOptions="Center" FontSize="15" />
+                                </StackLayout>
+                                <BoxView Grid.Column="1" Color="Silver" />
+                                <StackLayout Grid.Column="2" Spacing="0" VerticalOptions="Center" Margin="5">
+                                    <Label Text="{Binding Title}" />
+                                    <Label Text="{Binding NumberOfParticipants, Converter={StaticResource ParticipantsToStringNumber}}" FontSize="14" TextColor="Silver" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

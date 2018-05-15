@@ -5,26 +5,33 @@ using Firebase.Auth;
 
 namespace StrangersToFriends.Helper
 {
-	public class LoginManager
+	public sealed class LoginManager
     {
-		public const string FirebaseAppKey = "AIzaSyCnvfHpScTlaTYR1IMlyeN4o_aQ_PVjzEM";
-		public const string FirebaseAppUri = "https://<YOUR_FIREBASE_APP>.firebaseio.com/";
+		private const string FirebaseAppKey = "AIzaSyCnvfHpScTlaTYR1IMlyeN4o_aQ_PVjzEM";
 
+		private static readonly LoginManager instance = new LoginManager();
 		private static FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig(FirebaseAppKey));
-		private static LoginManager shared = new LoginManager();
 
-		public static LoginManager Shared => shared;
+		public static FirebaseAuth Auth { get; set; }
+
+		public static LoginManager Instance 
+		{
+			get
+			{
+				return instance;
+			}
+		}
 
 		private LoginManager() {}
 
-		public async Task<FirebaseAuthLink> LoginWithEmailAndPassword(String email, String password) 
+		public Task<FirebaseAuthLink> signupWithEmailAndPassword(string email, string password)
 		{
-			return await authProvider.SignInWithEmailAndPasswordAsync(email, password);
+			return authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
 		}
 
-		public async Task<FirebaseAuthLink> SignUpWithEmailAndPassword(String email, String password)
-        {
-			return await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
-        }
+		public Task<FirebaseAuthLink> loginWithEmailAndPassword(string email, string password)
+		{
+			return authProvider.SignInWithEmailAndPasswordAsync(email, password);
+		}
     }
 }

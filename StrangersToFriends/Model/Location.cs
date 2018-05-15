@@ -4,10 +4,10 @@ namespace StrangersToFriends.Model
     public class Location
     {
 		public string Name { get; set; }
-		public int Latitude { get; set; }
-		public int Longitude { get; set; }
+		public double Latitude { get; set; }
+		public double Longitude { get; set; }
 
-        public Location(string name, int latitude, int longitude)
+		public Location(string name, double latitude, double longitude)
         {
 			Name = name;
 			Latitude = latitude;

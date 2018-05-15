@@ -2,24 +2,23 @@
 using System.Windows.Input;
 
 using StrangersToFriends.Enums;
-using StrangersToFriends.Infastructure.Services;
+using StrangersToFriends.Helper;
 
 using Firebase.Auth;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using StrangersToFriends.Infrastructure.Services;
+using StrangersToFriends.Infastructure.Services;
 
 namespace StrangersToFriends.ViewModel
 {
 	public class LoginViewModel : ViewModelBase
     {
-		public const string FirebaseAppKey = "AIzaSyCnvfHpScTlaTYR1IMlyeN4o_aQ_PVjzEM";
+        private readonly INavigationService _navigationService;
+		private readonly IDialogService _dialogService;
 
-        private readonly INavigationService navigationService;
-
-		private bool isSignup = false;
-        
-        private FirebaseAuthProvider authProvider;
+		private bool _isSignup = false;
 
 		public ICommand SignUpOrLoginCommand { get; private set; }
 		public ICommand SignUpCommand { get; private set; }
@@ -31,15 +30,15 @@ namespace StrangersToFriends.ViewModel
 		public String Signup { get; set; }
 		public bool IsPasswordResetVisable { get; set; }
 
-        public LoginViewModel(INavigationService navigationService)
+		public LoginViewModel(INavigationService navigationService, IDialogService dialogService)
         {
-            this.navigationService = navigationService;
+            _navigationService = navigationService;
+			_dialogService = dialogService;
+
 			SignUpOrLoginCommand = new RelayCommand(SingnupOrLoginAsync);
 			SignUpCommand = new RelayCommand(Register);
 
 			clearFields();
-
-			authProvider = new FirebaseAuthProvider(new FirebaseConfig(FirebaseAppKey));
         }
         
 		private async void SingnupOrLoginAsync()  {
@@ -47,44 +46,46 @@ namespace StrangersToFriends.ViewModel
 			if (!string.IsNullOrWhiteSpace(Email) || !string.IsNullOrWhiteSpace(Password))
 			{
 				FirebaseAuthLink auth;
-                if (isSignup)
+                if (_isSignup)
                 {
 					try 
 					{
-						auth = await authProvider.CreateUserWithEmailAndPasswordAsync(Email, Password);
-                        navigationService.NavigateTo(AppPages.MainPage, auth);
+						auth = await LoginManager.Instance.signupWithEmailAndPassword(Email, Password);
+						LoginManager.Auth = auth;
+                        _navigationService.NavigateTo(AppPages.MainPage);
 					}
 					catch (FirebaseAuthException ex)
 					{
-						// TODO: Dialog
+						await _dialogService.ShowMessage(ex.Message, "Error");
 					}
                 }
                 else
                 {
                     try
                     {
-						auth = await authProvider.SignInWithEmailAndPasswordAsync(Email, Password);
-						navigationService.NavigateTo(AppPages.MainPage, auth);
+						auth = await LoginManager.Instance.loginWithEmailAndPassword(Email, Password);
+						LoginManager.Auth = auth;
+						_navigationService.NavigateTo(AppPages.MainPage);
                     }
                     catch (FirebaseAuthException ex)
                     {
-						// TODO: Dialog 
+						await _dialogService.ShowMessage("You have entered an invalid email or password!", "Login");
                     }
                 }
 			}
 		}
 
 		private void Register() {
-			if (!isSignup)
+			if (!_isSignup)
 			{
 				Title = "Sign up";
 				Signup = "Login";
 				IsPasswordResetVisable = false;
-				isSignup = true;
+				_isSignup = true;
 			} else {
 				Title = "Login";
 				Signup = "Sign up";
-                isSignup = false;
+                _isSignup = false;
 				IsPasswordResetVisable = true;
 			}
 		}

@@ -1,10 +1,13 @@
 ﻿using Xamarin.Forms;
+
 using StrangersToFriends.Pages;
 using StrangersToFriends.ViewModel;
 using StrangersToFriends.Enums;
 using StrangersToFriends.Infastructure.Services;
+using StrangersToFriends.Infrastructure.Services;
 
 using GalaSoft.MvvmLight.Ioc;
+
 
 namespace StrangersToFriends
 {
@@ -18,17 +21,19 @@ namespace StrangersToFriends
                 return _locator ?? (_locator = new ViewModelLocator());
             }
         }
-
+        
         public App()
         {
             InitializeComponent();
 
-            INavigationService navigationService;
+			INavigationService navigationService;
+			IDialogService dialogService;
 
-            if (!SimpleIoc.Default.IsRegistered<INavigationService>())
+			if (!SimpleIoc.Default.IsRegistered<Infastructure.Services.INavigationService>())
             {
                 // Setup navigation service:
                 navigationService = new NavigationService();
+				dialogService = new DialogService();
 
                 // Configure pages:
                 navigationService.Configure(AppPages.MainPage, typeof(MainPage));
@@ -37,13 +42,19 @@ namespace StrangersToFriends
                 navigationService.Configure(AppPages.MyActivitiesPage, typeof(MyActivitiesPage));
                 navigationService.Configure(AppPages.SearchPage, typeof(SearchPage));
 				navigationService.Configure(AppPages.LoginPage, typeof(LoginPage));
+				navigationService.Configure(AppPages.DetailsPage, typeof(DetailsPage));
 
                 // Register NavigationService in IoC container:
-                SimpleIoc.Default.Register<INavigationService>(() => navigationService);
+				SimpleIoc.Default.Register<INavigationService>(() => navigationService);
+				SimpleIoc.Default.Register<IDialogService>(() => dialogService);
             }
 
             else
-                navigationService = SimpleIoc.Default.GetInstance<INavigationService>();
+			{
+				navigationService = SimpleIoc.Default.GetInstance<INavigationService>();
+				dialogService = SimpleIoc.Default.GetInstance<IDialogService>();
+			}
+				
 
 			// Create new Navigation Page and set MainPage as its default page:
 			var firstPage = new NavigationPage(new LoginPage());
