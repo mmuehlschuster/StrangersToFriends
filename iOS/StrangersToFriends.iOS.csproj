@@ -102,6 +102,21 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.2.5.0.280555\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.Permissions.Abstractions">
+      <HintPath>..\packages\Plugin.Permissions.2.2.1\lib\Xamarin.iOS10\Plugin.Permissions.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Permissions">
+      <HintPath>..\packages\Plugin.Permissions.2.2.1\lib\Xamarin.iOS10\Plugin.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Geolocator.Abstractions">
+      <HintPath>..\packages\Xam.Plugin.Geolocator.4.2.0\lib\Xamarin.iOS10\Plugin.Geolocator.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Geolocator">
+      <HintPath>..\packages\Xam.Plugin.Geolocator.4.2.0\lib\Xamarin.iOS10\Plugin.Geolocator.dll</HintPath>
+    </Reference>
+    <Reference Include="KeyboardOverlap.Forms.Plugin.iOSUnified">
+      <HintPath>..\packages\Xam.Plugins.Forms.KeyboardOverlap.1.0.0.4\lib\Xamarin.iOS10\KeyboardOverlap.Forms.Plugin.iOSUnified.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StrangersToFriends\StrangersToFriends.csproj">
@@ -144,7 +159,24 @@
     <BundleResource Include="Resources\ic_location_2x.png" />
     <BundleResource Include="Resources\ic_location_3x.png" />
     <BundleResource Include="Resources\ic_location.png" />
+    <BundleResource Include="Resources\logo%402x.png" />
     <BundleResource Include="Resources\logo.png" />
+    <BundleResource Include="Resources\logo%403x.png" />
+    <BundleResource Include="Resources\ic_more_2x.png" />
+    <BundleResource Include="Resources\ic_more_3x.png" />
+    <BundleResource Include="Resources\ic_more.png" />
+    <BundleResource Include="Resources\ic_all_2x.png" />
+    <BundleResource Include="Resources\ic_all_3x.png" />
+    <BundleResource Include="Resources\ic_all.png" />
+    <BundleResource Include="Resources\ic_joined_2x.png" />
+    <BundleResource Include="Resources\ic_joined_3x.png" />
+    <BundleResource Include="Resources\ic_joined.png" />
+    <BundleResource Include="Resources\ic_created_2x.png" />
+    <BundleResource Include="Resources\ic_created_3x.png" />
+    <BundleResource Include="Resources\ic_created.png" />
+    <BundleResource Include="Resources\ic_check_2x.png" />
+    <BundleResource Include="Resources\ic_check_3x.png" />
+    <BundleResource Include="Resources\ic_check.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.280555\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.280555\build\netstandard1.0\Xamarin.Forms.targets')" />

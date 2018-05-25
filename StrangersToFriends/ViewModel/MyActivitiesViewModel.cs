@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows.Input;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 using StrangersToFriends.Enums;
 using StrangersToFriends.Model;
@@ -10,6 +12,7 @@ using StrangersToFriends.Constants;
 using StrangersToFriends.Infastructure.Services;
 
 using Firebase.Database;
+using Firebase.Database.Query;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -20,31 +23,35 @@ namespace StrangersToFriends.ViewModel
 	{
 		private readonly INavigationService _navigationService;
 		public ICommand AddCommand { get; private set; }
+		public ICommand DeleteCommand { get; private set; }
 
 		public ObservableCollection<Activity> Activities { get; set; }
 
 		public Activity SelectedActivity 
 		{
 			get => null;
-			set => _navigationService.NavigateTo(AppPages.DetailsPage, value);
+			set
+			{
+				if (value != null)
+				{
+					_navigationService.NavigateTo(AppPages.DetailsPage, value);
+					RaisePropertyChanged();
+				}
+			}
 		}
 
-		private FirebaseClient _firebase;
+		private ContentManager _contentManager;
 
 		public MyActivitiesViewModel(INavigationService navigationService)
 		{
 			_navigationService = navigationService;
             
 			AddCommand = new RelayCommand(AddActivity);
-
-			Activities = new ObservableCollection<Activity>();
+			DeleteCommand = new RelayCommand<Activity>(DeleteActivity);
             
-			_firebase = new FirebaseClient(Constant.FirebaseAppUri, new FirebaseOptions
-			{
-				AuthTokenAsyncFactory = () => Task.FromResult(LoginManager.Auth.FirebaseToken)
-			});
+			Activities = new ObservableCollection<Activity>();
 
-			loadDataFromDatabase();
+			_contentManager = new ContentManager();
 		}
 
 		private void AddActivity()
@@ -52,9 +59,35 @@ namespace StrangersToFriends.ViewModel
 			_navigationService.NavigateTo(AppPages.AddActivityPage);
 		}
 
-		private async void loadDataFromDatabase()
+		private void RemoveActivitiyFromList(ObservableCollection<Activity> activities, Activity activity)
 		{
-			var activities = await _firebase.Child("activities").OnceAsync<Activity>();
+			foreach (Activity ac in activities.ToList())
+			{
+				if (ac.ID.Equals(activity.ID)) 
+				{
+					activities.Remove(ac);
+				}
+			}
+		}
+
+		private async void DeleteActivity(Activity activity) 
+		{
+			var all = App.Locator.AllActivitiesViewModel.Activities;
+			var filtered = App.Locator.AllActivitiesViewModel.FilteredActivities;
+            var created = App.Locator.MyActivitiesViewModel.Activities;
+            var joined = App.Locator.JoinedActivitiesViewModel.Activities;
+
+			RemoveActivitiyFromList(all, activity);
+			RemoveActivitiyFromList(filtered, activity);
+			RemoveActivitiyFromList(created, activity);
+			RemoveActivitiyFromList(joined, activity);
+
+			await _contentManager.DeleteActivity(activity);
+		}
+
+		public async void loadDataFromDatabase()
+		{
+			var activities = await _contentManager.GetActivities();
 
 			Activities.Clear();
 			foreach (var activity in activities)

@@ -40,9 +40,11 @@ namespace StrangersToFriends
                 navigationService.Configure(AppPages.AddActivityPage, typeof(AddActivityPage));
                 navigationService.Configure(AppPages.AllActivitiesPage, typeof(AllActivitiesPage));
                 navigationService.Configure(AppPages.MyActivitiesPage, typeof(MyActivitiesPage));
+				navigationService.Configure(AppPages.JoinedActivitiesPage, typeof(JoinedActivitiesPage));
                 navigationService.Configure(AppPages.SearchPage, typeof(SearchPage));
 				navigationService.Configure(AppPages.LoginPage, typeof(LoginPage));
 				navigationService.Configure(AppPages.DetailsPage, typeof(DetailsPage));
+				navigationService.Configure(AppPages.MorePage, typeof(MorePage));
 
                 // Register NavigationService in IoC container:
 				SimpleIoc.Default.Register<INavigationService>(() => navigationService);
@@ -58,6 +60,8 @@ namespace StrangersToFriends
 
 			// Create new Navigation Page and set MainPage as its default page:
 			var firstPage = new NavigationPage(new LoginPage());
+			firstPage.BarBackgroundColor = Color.Transparent;
+			firstPage.BarTextColor = Color.Black;
             // Set Navigation page as default page for Navigation Service:
             navigationService.Initialize(firstPage);
             // You have to also set MainPage property for the app:

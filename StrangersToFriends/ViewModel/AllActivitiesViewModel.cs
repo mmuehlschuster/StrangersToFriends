@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Collections.ObjectModel;
-
-using Firebase.Database;
+﻿using System.Collections.ObjectModel;
 
 using GalaSoft.MvvmLight;
 
@@ -9,48 +6,52 @@ using StrangersToFriends.Model;
 using StrangersToFriends.Enums;
 using StrangersToFriends.Helper;
 using StrangersToFriends.Infastructure.Services;
-using StrangersToFriends.Constants;
 
 namespace StrangersToFriends.ViewModel
 {
 	public class AllActivitiesViewModel : ViewModelBase
 	{
         private readonly INavigationService _navigationService;
-
-		public ObservableCollection<Activity> AllActivities { get; set; }
+        
+		public ObservableCollection<Activity> Activities { get; set; }
+		public ObservableCollection<Activity> FilteredActivities { get; set; }
 
 		public Activity SelectedActivity
         {
-            get => null;
-            set => _navigationService.NavigateTo(AppPages.DetailsPage, value);
+			get => null;
+            set
+			{
+				if (value != null) {
+					_navigationService.NavigateTo(AppPages.DetailsPage, value);
+                    RaisePropertyChanged();
+				}
+			} 
         }
 
-        private FirebaseClient _firebase;
+		private ContentManager _contentManager;
 
 		public AllActivitiesViewModel(INavigationService navigationService)
         {
 			_navigationService = navigationService;
+                   
+			Activities = new ObservableCollection<Activity>();
+			FilteredActivities = new ObservableCollection<Activity>();
 
-			AllActivities = new ObservableCollection<Activity>();
-
-			_firebase = new FirebaseClient(Constant.FirebaseAppUri, new FirebaseOptions
-            {
-                AuthTokenAsyncFactory = () => Task.FromResult(LoginManager.Auth.FirebaseToken)
-            });
-
-            loadDataFromDatabase();
+			_contentManager = new ContentManager();
         }
 
-		private async void loadDataFromDatabase()
+		public async void loadDataFromDatabase()
         {
-			var activities = await _firebase.Child("activities").OnceAsync<Activity>();
+			var activities = await _contentManager.GetActivities();
 
-            AllActivities.Clear();
+			Activities.Clear();
+			FilteredActivities.Clear();
             foreach (var activity in activities)
             {
 				Activity ac = activity.Object;
                 ac.ID = activity.Key;
-				AllActivities.Add(ac);
+				Activities.Add(ac);
+				FilteredActivities.Add(ac);
             }
         }
     }

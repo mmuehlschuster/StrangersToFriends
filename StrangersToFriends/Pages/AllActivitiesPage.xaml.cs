@@ -12,5 +12,5 @@ namespace StrangersToFriends.Pages
             InitializeComponent();
             BindingContext = App.Locator.AllActivitiesViewModel;
         }
-    }
+	}
 }

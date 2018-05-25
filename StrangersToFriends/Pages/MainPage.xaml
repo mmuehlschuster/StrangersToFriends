@@ -4,11 +4,14 @@
             xmlns:local="clr-namespace:StrangersToFriends.Pages" 
             x:Class="StrangersToFriends.Pages.MainPage"
             Title="StrangersToFriends"
-            BackgroundImage="logo.png">
+            BarBackgroundColor="Transparent"
+            BarTextColor="Black">
     
     <TabbedPage.Children>
         <local:AllActivitiesPage />
         <local:MyActivitiesPage />
+        <local:JoinedActivitiesPage />
         <local:SearchPage />
+        <local:MorePage />
     </TabbedPage.Children>
 </TabbedPage>

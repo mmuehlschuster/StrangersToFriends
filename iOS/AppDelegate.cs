@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using KeyboardOverlap.Forms.Plugin.iOSUnified;
 
 namespace StrangersToFriends.iOS
 {
@@ -14,6 +15,7 @@ namespace StrangersToFriends.iOS
         {
             global::Xamarin.Forms.Forms.Init();
 			global::Xamarin.FormsMaps.Init();
+			KeyboardOverlapRenderer.Init();
 
             LoadApplication(new App());
 

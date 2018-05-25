@@ -9,8 +9,8 @@ namespace StrangersToFriends.Helper
     {
 		private const string FirebaseAppKey = "AIzaSyCnvfHpScTlaTYR1IMlyeN4o_aQ_PVjzEM";
 
-		private static readonly LoginManager instance = new LoginManager();
-		private static FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig(FirebaseAppKey));
+		private static readonly LoginManager _instance = new LoginManager();
+		private static FirebaseAuthProvider _authProvider = new FirebaseAuthProvider(new FirebaseConfig(FirebaseAppKey));
 
 		public static FirebaseAuth Auth { get; set; }
 
@@ -18,7 +18,7 @@ namespace StrangersToFriends.Helper
 		{
 			get
 			{
-				return instance;
+				return _instance;
 			}
 		}
 
@@ -26,12 +26,12 @@ namespace StrangersToFriends.Helper
 
 		public Task<FirebaseAuthLink> signupWithEmailAndPassword(string email, string password)
 		{
-			return authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
+			return _authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
 		}
 
 		public Task<FirebaseAuthLink> loginWithEmailAndPassword(string email, string password)
 		{
-			return authProvider.SignInWithEmailAndPasswordAsync(email, password);
+			return _authProvider.SignInWithEmailAndPasswordAsync(email, password);
 		}
     }
 }

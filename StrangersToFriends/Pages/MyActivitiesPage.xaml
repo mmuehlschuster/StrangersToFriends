@@ -1,49 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:StrangersToFriends.Converter"
-             x:Class="StrangersToFriends.Pages.MyActivitiesPage"
-             Title="My Activities"
-             Icon="ic_person_pin.png"
-             BackgroundImage="logo.png">
-
-
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:converters="clr-namespace:StrangersToFriends.Converter" 
+             x:Class="StrangersToFriends.Pages.MyActivitiesPage" 
+             Title="Created" 
+             Icon="ic_created.png"
+             x:Name="myActivityPage">
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ParticipantsToStringNumberConverter x:Key="participantsToStringNumber" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="Create" Icon="ic_add.png" Command="{Binding AddCommand}"></ToolbarItem>
+        <ToolbarItem Name="Create" Icon="ic_add.png" Command="{Binding AddCommand}">
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
-    
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding Activities}" SeparatorVisibility="None" HasUnevenRows="true" SelectedItem="{Binding SelectedActivity, Mode=TwoWay}" BackgroundColor="Transparent">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Frame HasShadow="true" Margin="20,8,20,8" HeightRequest="70">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="1" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <StackLayout Grid.Column="0" Spacing="0">
-                                    <Label Text="{Binding Date, StringFormat='{0:dd}'}" HorizontalOptions="Center" FontSize="25"/>
-                                    <Label Text="{Binding Date, StringFormat='{0:MMM}'}" HorizontalOptions="Center" FontSize="15"/>
-                                </StackLayout>
-                                <BoxView Grid.Column="1" Color="Silver" />
-                                <StackLayout Grid.Column="2" Spacing="0" VerticalOptions="Center" Margin="5">
-                                    <Label Text="{Binding Title}"/>
-                                    <Label Text="{Binding NumberOfParticipants, Converter={StaticResource participantsToStringNumber}}" FontSize="14" TextColor="Silver"/>
-                                </StackLayout>
-                            </Grid>
-                        </Frame>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Image Source="logo.png" Aspect="Fill"/>
+            <ListView ItemsSource="{Binding Activities}" SeparatorVisibility="None" HasUnevenRows="true" SelectedItem="{Binding SelectedActivity, Mode=TwoWay}" BackgroundColor="Transparent">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Delete" Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference myActivityPage}}" CommandParameter="{Binding .}" IsDestructive="true"/>
+                            </ViewCell.ContextActions>
+                            <Frame HasShadow="true" Margin="20,8,20,8" HeightRequest="70">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="1" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Column="0" Spacing="0">
+                                        <Label Text="{Binding Date, StringFormat='{0:dd}'}" HorizontalOptions="Center" FontSize="25" />
+                                        <Label Text="{Binding Date, StringFormat='{0:MMM}'}" HorizontalOptions="Center" FontSize="15" />
+                                    </StackLayout>
+                                    <BoxView Grid.Column="1" Color="Silver" />
+                                    <StackLayout Grid.Column="2" Spacing="0" VerticalOptions="Center" Margin="5">
+                                        <Label Text="{Binding Title}" />
+                                        <Label Text="{Binding NumberOfParticipants, Converter={StaticResource participantsToStringNumber}}" FontSize="14" TextColor="Silver" />
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -48,9 +48,11 @@ namespace StrangersToFriends.ViewModel
             SimpleIoc.Default.Register<AddViewModel>();
             SimpleIoc.Default.Register<AllActivitiesViewModel>();
             SimpleIoc.Default.Register<MyActivitiesViewModel>();
+			SimpleIoc.Default.Register<JoinedActivitiesViewModel>();
             SimpleIoc.Default.Register<SearchViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
 			SimpleIoc.Default.Register<DetailsViewModel>();
+			SimpleIoc.Default.Register<MoreViewModel>();
         }
 
         public MainViewModel MainViewModel
@@ -85,6 +87,14 @@ namespace StrangersToFriends.ViewModel
             }
         }
 
+		public JoinedActivitiesViewModel JoinedActivitiesViewModel
+		{
+			get
+			{
+				return ServiceLocator.Current.GetInstance<JoinedActivitiesViewModel>();
+			}
+		}
+
         public SearchViewModel SearchViewModel
         {
             get
@@ -106,6 +116,14 @@ namespace StrangersToFriends.ViewModel
 			get
 			{
 				return ServiceLocator.Current.GetInstance<DetailsViewModel>();	
+			}
+		}
+
+		public MoreViewModel MoreViewModel
+		{
+			get
+			{
+				return ServiceLocator.Current.GetInstance<MoreViewModel>();
 			}
 		}
         

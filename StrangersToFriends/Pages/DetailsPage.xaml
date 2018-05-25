@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:StrangersToFriends.Converter" 
-             x:Class="StrangersToFriends.Pages.DetailsPage"
-             BackgroundImage="logo.png">
-    
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converters="clr-namespace:StrangersToFriends.Converter" x:Class="StrangersToFriends.Pages.DetailsPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ParticipantsToStringNumberConverter x:Key="ParticipantsToStringNumber" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Frame HasShadow="true" VerticalOptions="Center" HorizontalOptions="Center">
-            <StackLayout WidthRequest="250">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50" />
-                        <ColumnDefinition Width="1" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <StackLayout Grid.Column="0" Spacing="0">
-                        <Label Text="{Binding Date, StringFormat='{0:dd}'}" HorizontalOptions="Center" FontSize="25" />
-                        <Label Text="{Binding Date, StringFormat='{0:MMM}'}" HorizontalOptions="Center" FontSize="15" />
-                    </StackLayout>
-                    <BoxView Grid.Column="1" Color="Silver" />
-                    <StackLayout Grid.Column="2" Spacing="0" VerticalOptions="Center" Margin="5">
-                        <Label Text="{Binding Title}" />
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Date, StringFormat='{0:hh:mm}'}" FontSize="14" TextColor="Silver" />
-                            <Label Text="{Binding Participants, Converter={StaticResource ParticipantsToStringNumber}}" FontSize="14" TextColor="Silver" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Image Source="logo.png" Aspect="Fill"/>
+            <Frame HasShadow="true" VerticalOptions="Center" HorizontalOptions="Center">
+                <StackLayout WidthRequest="250">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="1" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="0" Spacing="0">
+                            <Label Text="{Binding Date, StringFormat='{0:dd}'}" HorizontalOptions="Center" FontSize="25" />
+                            <Label Text="{Binding Date, StringFormat='{0:MMM}'}" HorizontalOptions="Center" FontSize="15" />
                         </StackLayout>
+                        <BoxView Grid.Column="1" Color="Silver" />
+                        <StackLayout Grid.Column="2" Spacing="0" VerticalOptions="Center" Margin="5">
+                            <Label Text="{Binding Title}" />
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Date, StringFormat='{0:hh:mm}'}" FontSize="14" TextColor="Silver" />
+                                <Label Text="{Binding Participants, Converter={StaticResource ParticipantsToStringNumber}}" FontSize="14" TextColor="Silver" />
+                            </StackLayout>
+                        </StackLayout>
+                    </Grid>
+                    <StackLayout Orientation="Horizontal" Margin="10,5,0,10">
+                        <Image Source="ic_location.png" WidthRequest="15" HeightRequest="15" />
+                        <Label Text="{Binding Location}" FontSize="15" FontAttributes="Italic" TextColor="Silver" />
                     </StackLayout>
-                </Grid>
-                <StackLayout Orientation="Horizontal" Margin="10,5,0,10">
-                    <Image Source="ic_location.png" WidthRequest="15" HeightRequest="15" />
-                    <Label Text="{Binding Location}" FontSize="15" FontAttributes="Italic" TextColor="Silver" />
+                    <StackLayout>
+                        <Label Text="{Binding Description}" FontSize="15" HeightRequest="100" Margin="10,0,10,0" />
+                        <Button Text="{Binding ButtonText}" TextColor="Black" BorderWidth="0.5" BorderRadius="10" BorderColor="Black" HeightRequest="30" Margin="30,10,30,0" Command="{Binding JoinOrLeaveCommand}" />
+                    </StackLayout>
                 </StackLayout>
-                <StackLayout>
-                    <Label Text="{Binding Description}" FontSize="15" HeightRequest="100" Margin="10,0,10,0" />
-                    <Button Text="{Binding ButtonText}" TextColor="Black" BorderWidth="0.5" BorderRadius="10" BorderColor="Black" HeightRequest="30" Margin="30,10,30,0" Command="{Binding JoinOrLeaveCommand}"/>
-                </StackLayout>
-            </StackLayout>
-        </Frame>
+            </Frame>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

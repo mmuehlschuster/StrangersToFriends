@@ -3,6 +3,6 @@ namespace StrangersToFriends.Enums
 {
     public enum AppPages
     {
-        MainPage, AddActivityPage, AllActivitiesPage, MyActivitiesPage, SearchPage, LoginPage, DetailsPage
+        MainPage, AddActivityPage, AllActivitiesPage, MyActivitiesPage, JoinedActivitiesPage, SearchPage, LoginPage, DetailsPage, MorePage
     }
 }
