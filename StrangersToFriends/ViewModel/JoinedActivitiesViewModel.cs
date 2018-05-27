@@ -1,18 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 
 using StrangersToFriends.Model;
 using StrangersToFriends.Enums;
 using StrangersToFriends.Helper;
-using StrangersToFriends.Constants;
 using StrangersToFriends.Infastructure.Services;
-
-using Firebase.Database;
 
 namespace StrangersToFriends.ViewModel
 {

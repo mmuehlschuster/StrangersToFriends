@@ -1,18 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Input;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 using StrangersToFriends.Enums;
 using StrangersToFriends.Model;
 using StrangersToFriends.Helper;
-using StrangersToFriends.Constants;
 using StrangersToFriends.Infastructure.Services;
-
-using Firebase.Database;
-using Firebase.Database.Query;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;

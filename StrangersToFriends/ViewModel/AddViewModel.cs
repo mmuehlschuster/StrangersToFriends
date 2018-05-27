@@ -2,12 +2,9 @@
 
 using Newtonsoft.Json;
 
-using Firebase.Database;
-
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Collections.Generic;
 
 using StrangersToFriends.Model;
 using StrangersToFriends.Helper;
@@ -122,7 +119,7 @@ namespace StrangersToFriends.ViewModel
 		private void clearFields()
 		{
 			Title = string.Empty;
-			_date = DateTime.Now;
+			Date = DateTime.Now;
 			SelectedCategory = string.Empty;
 			Location = string.Empty;
 			Description = string.Empty;
